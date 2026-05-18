@@ -78,6 +78,11 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
 
   upgrade_mode = "Automatic"
 
+  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
+    component_name = var.component_name
+    env            = var.env
+  }))
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
