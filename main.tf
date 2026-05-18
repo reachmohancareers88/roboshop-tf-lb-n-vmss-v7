@@ -3,6 +3,7 @@ module "db" {
 
   for_each       = var.db
   component_name = each.key
+  vm_size        = try(each.value["vm_size"], "Standard_B1s")
 
   rgname    = var.rgname
   image_id  = var.image_id

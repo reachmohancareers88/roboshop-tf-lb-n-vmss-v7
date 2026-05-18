@@ -6,7 +6,9 @@ subnet_id = "/subscriptions/3f2e42e1-ca06-4a99-8c56-be8d8ba306db/resourceGroups/
 db = {
   mysql = {}
   valkey   = {}
-  mongodb  = {}
+  mongodb  = {
+    vm_type = "Standard_B1ms"
+  }
   rabbitmq = {}
 }
 

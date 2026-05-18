@@ -17,7 +17,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   location                        = data.azurerm_resource_group.main.location
   resource_group_name             = data.azurerm_resource_group.main.name
   network_interface_ids           = [azurerm_network_interface.main[count.index].id]
-  size                            = "Standard_B1s"
+  size                            = var.vm_size
   admin_password                  = "DevOps@123456"
   admin_username                  = "devops"
   source_image_id                 = var.image_id

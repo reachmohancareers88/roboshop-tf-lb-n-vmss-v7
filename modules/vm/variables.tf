@@ -10,4 +10,5 @@ variable "port" {
 }
 variable "vm_count" {}
 variable "subnet_id" {}
+variable "vm_size" {}
 
