@@ -7,7 +7,7 @@ db = {
   mysql = {}
   valkey   = {}
   mongodb  = {
-    vm_type = "Standard_B1ms"
+    vm_size = "Standard_B1ms"
   }
   rabbitmq = {}
 }
