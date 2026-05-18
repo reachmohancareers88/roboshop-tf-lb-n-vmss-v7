@@ -78,7 +78,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
 
   upgrade_mode = "Automatic"
 
-  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
+  user_data = base64encode(templatefile("${path.root}/userdata.sh", {
     component_name = var.component_name
     env            = var.env
   }))

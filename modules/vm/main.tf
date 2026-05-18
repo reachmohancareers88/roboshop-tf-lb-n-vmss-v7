@@ -25,6 +25,11 @@ resource "azurerm_linux_virtual_machine" "main" {
   secure_boot_enabled             = true
   vtpm_enabled                    = true
 
+  user_data = base64encode(templatefile("${path.root}/userdata.sh", {
+    component_name = var.component_name
+    env            = var.env
+  }))
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
