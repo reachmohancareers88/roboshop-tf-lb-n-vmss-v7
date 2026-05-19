@@ -7,8 +7,8 @@ db = {
   mysql = {
     vm_size = "Standard_B1ms"
   }
-  valkey   = {}
-  mongodb  = {
+  valkey = {}
+  mongodb = {
     vm_size = "Standard_B1ms"
   }
   rabbitmq = {}
@@ -18,25 +18,25 @@ apps = {
   catalogue = {
     port = 8002
   }
-  user         = {
+  user = {
     port = 8001
   }
-  cart         = {
+  cart = {
     port = 8003
   }
-  shipping     = {
+  shipping = {
     port = 8004
   }
-  orders        = {
+  orders = {
     port = 8007
   }
   notification = {
     port = 8008
   }
-  ratings      = {
+  ratings = {
     port = 8006
   }
-  payment      = {
+  payment = {
     port = 8005
   }
 }
