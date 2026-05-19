@@ -8,8 +8,8 @@ resource "azurerm_public_ip" "main" {
   count = local.lb_public ? 1 : 0
 
   name                = "${var.component_name}-${var.env}-pip"
-  location            = data.azurerm_resource_group.main.location
-  resource_group_name = data.azurerm_resource_group.main.name
+  location            = var.rg_location
+  resource_group_name = var.rg_name
   allocation_method   = "Static"
   sku                 = "Standard"
 }
@@ -18,8 +18,8 @@ resource "azurerm_lb" "main" {
   count = local.lb_enabled ? 1 : 0
 
   name                = "${var.component_name}-${var.env}-lb"
-  location            = data.azurerm_resource_group.main.location
-  resource_group_name = data.azurerm_resource_group.main.name
+  location            = var.rg_location
+  resource_group_name = var.rg_name
   sku                 = "Standard"
 
   frontend_ip_configuration {
@@ -61,8 +61,8 @@ resource "azurerm_lb_rule" "main" {
 
 resource "azurerm_linux_virtual_machine_scale_set" "main" {
   name                = "${var.component_name}-${var.env}"
-  location            = data.azurerm_resource_group.main.location
-  resource_group_name = data.azurerm_resource_group.main.name
+  location            = var.rg_location
+  resource_group_name = var.rg_name
 
   sku            = "Standard_B1s"
   instances      = 2
@@ -111,15 +111,15 @@ resource "azurerm_dns_a_record" "main" {
 
   name                = "${var.component_name}-${var.env}"
   zone_name           = "rdevopsb89.online"
-  resource_group_name = data.azurerm_resource_group.main.name
+  resource_group_name = var.rg_name
   ttl                 = 30
   records             = local.lb_public ? [azurerm_public_ip.main[0].ip_address] : [azurerm_lb.main[0].frontend_ip_configuration[0].private_ip_address]
 }
 
 resource "azurerm_monitor_autoscale_setting" "main" {
   name                = "${var.component_name}-${var.env}-autoscale"
-  location            = data.azurerm_resource_group.main.location
-  resource_group_name = data.azurerm_resource_group.main.name
+  location            = var.rg_location
+  resource_group_name = var.rg_name
   target_resource_id  = azurerm_linux_virtual_machine_scale_set.main.id
 
   profile {
