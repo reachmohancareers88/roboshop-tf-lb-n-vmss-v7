@@ -23,10 +23,11 @@ module "apps" {
 
   lb_type = "private"
 
-  env       = var.env
-  image_id  = var.image_id
-  rgname    = var.rgname
-  subnet_id = var.subnet_id
+  env         = var.env
+  image_id    = var.image_id
+  rg_name     = data.azurerm_resource_group.main.name
+  rg_location = data.azurerm_resource_group.main.location
+  subnet_id   = var.subnet_id
 }
 
 
