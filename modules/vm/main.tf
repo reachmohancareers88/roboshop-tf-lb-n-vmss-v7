@@ -20,8 +20,14 @@ resource "azurerm_linux_virtual_machine" "main" {
   size                            = var.vm_size
   admin_password                  = "Devops@123456"
   admin_username                  = "devops"
-  source_image_id                 = var.image_id
-  disable_password_authentication = false
+  
+ source_image_reference {
+  publisher = "RedHat"
+  offer     = "RHEL"
+  sku       = "10-lvm-gen2"
+  version   = "latest"
+} 
+disable_password_authentication = false
   secure_boot_enabled             = true
   vtpm_enabled                    = true
 

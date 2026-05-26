@@ -29,7 +29,7 @@ resource "azurerm_lb" "main" {
 
     public_ip_address_id = local.lb_public ? azurerm_public_ip.main[0].id : null
 
-    subnet_id = local.lb_private ? "/subscriptions/cde5241e-289a-449b-b2b7-4efcf2d5c83c/resourceGroups/denmark-east-rg/providers/Microsoft.Network/virtualNetworks/workstation-vnet/subnets/default" : null
+    subnet_id = local.lb_private ? "/subscriptions/cde5241e-289a-449b-b2b7-4efcf2d5c83c/resourceGroups/denmark-east-rg/providers/Microsoft.Network/virtualNetworks/controller-vnet/subnets/default" : null
 
     private_ip_address_allocation = local.lb_private ? "Dynamic" : null
   }
@@ -84,7 +84,12 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
 
   disable_password_authentication = false
 
-  source_image_id = "/subscriptions/cde5241e-289a-449b-b2b7-4efcf2d5c83c/resourceGroups/denmark-east-rg/providers/Microsoft.Compute/galleries/image/images/rhel10/versions/1.0.0"
+  source_image_reference {
+    publisher = "RedHat"
+    offer     = "RHEL"
+    sku       = "10-lvm-gen2"
+    version   = "latest"
+  }
 
   secure_boot_enabled = true
   vtpm_enabled        = true
@@ -109,7 +114,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
       name    = "internal"
       primary = true
 
-      subnet_id = "/subscriptions/cde5241e-289a-449b-b2b7-4efcf2d5c83c/resourceGroups/denmark-east-rg/providers/Microsoft.Network/virtualNetworks/workstation-vnet/subnets/default"
+      subnet_id = "/subscriptions/cde5241e-289a-449b-b2b7-4efcf2d5c83c/resourceGroups/denmark-east-rg/providers/Microsoft.Network/virtualNetworks/controller-vnet/subnets/default"
 
       load_balancer_backend_address_pool_ids = local.lb_enabled ? [
         azurerm_lb_backend_address_pool.main[0].id
