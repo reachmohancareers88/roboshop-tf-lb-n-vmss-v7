@@ -79,8 +79,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
   sku       = "Standard_B1s"
   instances = 2
 
-  admin_username = "devops"
-  admin_password = "DevOps@123456"
+  admin_username = "Devops"
+  admin_password = "Devops@123456"
 
   disable_password_authentication = false
 
